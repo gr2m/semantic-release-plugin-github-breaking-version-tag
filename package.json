@@ -1,0 +1,40 @@
+{
+  "name": "semantic-release-breaking-version-tag",
+  "version": "1.0.0",
+  "description": "Create tags for breaking version ranges using GitHub's REST API, e.g. `v1`, `v2`, etc",
+  "main": "index.js",
+  "scripts": {
+    "test": "c8 --100 ava"
+  },
+  "keywords": [
+    "semantic-release-plugin"
+  ],
+  "author": "Gregor Martynus (https://github.com/gr2m)",
+  "license": "ISC",
+  "dependencies": {
+    "@octokit/core": "^3.5.1",
+    "debug": "^4.3.3"
+  },
+  "devDependencies": {
+    "ava": "^4.0.1",
+    "c8": "^7.11.0",
+    "nock": "^13.2.4"
+  },
+  "repository": "github:gr2m/semantic-release-breaking-version-tag",
+  "renovate": {
+    "extends": [
+      "github>gr2m/.github"
+    ]
+  },
+  "release": {
+    "branches": [
+      "+([0-9]).x",
+      "main",
+      "next",
+      {
+        "name": "beta",
+        "prerelease": true
+      }
+    ]
+  }
+}
