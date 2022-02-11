@@ -18,7 +18,8 @@
   "devDependencies": {
     "ava": "^4.0.1",
     "c8": "^7.11.0",
-    "nock": "^13.2.4"
+    "nock": "^13.2.4",
+    "semantic-release": "^19.0.2"
   },
   "repository": "github:gr2m/semantic-release-plugin-github-breaking-version-tag",
   "renovate": {
@@ -39,7 +40,7 @@
     "plugins": [
       "@semantic-release/commit-analyzer",
       "@semantic-release/release-notes-generator",
-      ".",
+      "../../../../index.js",
       "@semantic-release/github",
       "@semantic-release/npm"
     ]
