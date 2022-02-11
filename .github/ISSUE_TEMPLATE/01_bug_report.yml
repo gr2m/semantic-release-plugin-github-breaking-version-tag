@@ -8,7 +8,7 @@ body:
     attributes:
       label: Please avoid duplicates
       options:
-        - label: I checked [all open bugs](https://github.com/gr2m/semantic-release-breaking-version-tag/issues?q=is%3Aissue+is%3Aopen+label%3Abug) and none of them matched my problem.
+        - label: I checked [all open bugs](https://github.com/gr2m/semantic-release-plugin-github-breaking-version-tag/issues?q=is%3Aissue+is%3Aopen+label%3Abug) and none of them matched my problem.
           required: true
   - type: input
     id: testcase
@@ -20,7 +20,7 @@ body:
     id: versions
     attributes:
       label: Versions
-      description: Please share the versions of `semantic-release-breaking-version-tag` and Node that you are using.
+      description: Please share the versions of `semantic-release-plugin-github-breaking-version-tag` and Node that you are using.
     validations:
       required: true
   - type: textarea

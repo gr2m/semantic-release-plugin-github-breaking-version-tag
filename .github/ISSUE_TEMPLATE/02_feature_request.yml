@@ -8,7 +8,7 @@ body:
     attributes:
       label: Please avoid duplicates
       options:
-        - label: I checked [all open feature requests](https://github.com/gr2m/semantic-release-breaking-version-tag/issues?q=is%3Aissue+is%3Aopen+label%3Afeature) and none of them matched my problem.
+        - label: I checked [all open feature requests](https://github.com/gr2m/semantic-release-plugin-github-breaking-version-tag/issues?q=is%3Aissue+is%3Aopen+label%3Afeature) and none of them matched my problem.
           required: true
   - type: textarea
     id: summary

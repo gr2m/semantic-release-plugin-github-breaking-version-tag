@@ -1,5 +1,5 @@
 {
-  "name": "semantic-release-breaking-version-tag",
+  "name": "semantic-release-plugin-github-breaking-version-tag",
   "version": "1.0.0",
   "description": "Create tags for breaking version ranges using GitHub's REST API, e.g. `v1`, `v2`, etc",
   "main": "index.js",
@@ -20,7 +20,7 @@
     "c8": "^7.11.0",
     "nock": "^13.2.4"
   },
-  "repository": "github:gr2m/semantic-release-breaking-version-tag",
+  "repository": "github:gr2m/semantic-release-plugin-github-breaking-version-tag",
   "renovate": {
     "extends": [
       "github>gr2m/.github"
@@ -35,6 +35,13 @@
         "name": "beta",
         "prerelease": true
       }
+    ],
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "./index.js",
+      "@semantic-release/github",
+      "@semantic-release/npm"
     ]
   }
 }

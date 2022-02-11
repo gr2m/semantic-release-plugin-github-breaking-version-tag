@@ -4,7 +4,7 @@ module.exports = {
 
 const { Octokit } = require("@octokit/core");
 const debug = require("debug")(
-  "semantic-release:semantic-release-breaking-version-tag"
+  "semantic-release:semantic-release-plugin-github-breaking-version-tag"
 );
 
 const parseGithubUrl = require("./parse-github-url.js");
