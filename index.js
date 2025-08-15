@@ -1,23 +1,16 @@
-module.exports = {
-  success,
-};
+import { Octokit } from "@octokit/core";
 
-const { Octokit } = require("@octokit/core");
-const debug = require("debug")(
-  "semantic-release:semantic-release-plugin-github-breaking-version-tag",
-);
+import parseGithubUrl from "./parse-github-url.js";
 
-const parseGithubUrl = require("./parse-github-url.js");
-
-async function success(
+export async function success(
   _pluginConfig,
-  { env, nextRelease, options: { repositoryUrl } },
+  { env, nextRelease, options: { repositoryUrl }, logger },
 ) {
   const isPreMajor = nextRelease.type === "premajor";
   const isMajor = nextRelease.type === "major";
 
   if (!isPreMajor && !isMajor) {
-    debug("next release is not a major version, skipping tag creation");
+    logger.info("next release is not a major version, skipping tag creation");
     return;
   }
 
@@ -45,7 +38,7 @@ async function success(
       },
     );
 
-    debug(`tag ${breakingVersionTag} already exists`);
+    logger.info(`tag ${breakingVersionTag} already exists`);
 
     // https://docs.github.com/en/rest/reference/git#update-a-reference
     await octokit.request("PATCH /repos/{owner}/{repo}/git/refs/{ref}", {
@@ -59,7 +52,7 @@ async function success(
     /* c8 ignore next */
     if (error.status !== 404) throw error;
 
-    debug(`tag ${breakingVersionTag} does not exist yet`);
+    logger.info(`tag ${breakingVersionTag} does not exist yet`);
 
     // https://docs.github.com/en/rest/reference/git#create-a-reference
     await octokit.request("POST /repos/{owner}/{repo}/git/refs", {
