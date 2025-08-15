@@ -39,7 +39,6 @@
     "plugins": [
       "@semantic-release/commit-analyzer",
       "@semantic-release/release-notes-generator",
-      "./index.js",
       "@semantic-release/github",
       "@semantic-release/npm"
     ]
