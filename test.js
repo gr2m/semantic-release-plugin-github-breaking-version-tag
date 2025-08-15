@@ -1,7 +1,7 @@
-const test = require("ava");
-const nock = require("nock");
+import test from "ava";
+import nock from "nock";
 
-const { success } = require("./index.js");
+import { success } from "./index.js";
 
 test("create new v1 tag", async (t) => {
   const mock = nock("https://api.github.com")
@@ -21,6 +21,7 @@ test("create new v1 tag", async (t) => {
     )
     .reply(201);
 
+  const logs = [];
   await success(
     {},
     {
@@ -32,10 +33,16 @@ test("create new v1 tag", async (t) => {
         repositoryUrl:
           "https://github.com/gr2m/semantic-release-plugin-github-breaking-version-tag",
       },
+      logger: {
+        info() {
+          logs.push(...arguments);
+        },
+      },
     },
   );
 
   t.deepEqual(mock.pendingMocks(), []);
+  t.deepEqual(logs, ["tag v1 does not exist yet"]);
 });
 
 test("update existing v1 new tag", async (t) => {
@@ -59,6 +66,7 @@ test("update existing v1 new tag", async (t) => {
     )
     .reply(200);
 
+  const logs = [];
   await success(
     {},
     {
@@ -70,15 +78,22 @@ test("update existing v1 new tag", async (t) => {
         repositoryUrl:
           "https://github.com/gr2m/semantic-release-plugin-github-breaking-version-tag",
       },
+      logger: {
+        info() {
+          logs.push(...arguments);
+        },
+      },
     },
   );
 
   t.deepEqual(mock.pendingMocks(), []);
+  t.deepEqual(logs, ["tag v1 already exists"]);
 });
 
 test("ignores non-major releases", async (t) => {
   const mock = nock("https://api.github.com");
 
+  const logs = [];
   await success(
     {},
     {
@@ -90,10 +105,18 @@ test("ignores non-major releases", async (t) => {
         repositoryUrl:
           "https://github.com/gr2m/semantic-release-plugin-github-breaking-version-tag",
       },
+      logger: {
+        info() {
+          logs.push(...arguments);
+        },
+      },
     },
   );
 
   t.deepEqual(mock.pendingMocks(), []);
+  t.deepEqual(logs, [
+    "next release is not a major version, skipping tag creation",
+  ]);
 });
 
 test("create new v2-beta tag", async (t) => {
@@ -113,6 +136,7 @@ test("create new v2-beta tag", async (t) => {
     )
     .reply(201);
 
+  const logs = [];
   await success(
     {},
     {
@@ -129,8 +153,14 @@ test("create new v2-beta tag", async (t) => {
         repositoryUrl:
           "https://github.com/gr2m/semantic-release-plugin-github-breaking-version-tag",
       },
+      logger: {
+        info() {
+          logs.push(...arguments);
+        },
+      },
     },
   );
 
   t.deepEqual(mock.pendingMocks(), []);
+  t.deepEqual(logs, ["tag v2-beta does not exist yet"]);
 });
