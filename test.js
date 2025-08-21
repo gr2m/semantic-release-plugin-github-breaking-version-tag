@@ -90,35 +90,6 @@ test("update existing v1 new tag", async (t) => {
   t.deepEqual(logs, ["tag v1 already exists"]);
 });
 
-test("ignores non-major releases", async (t) => {
-  const mock = nock("https://api.github.com");
-
-  const logs = [];
-  await success(
-    {},
-    {
-      env: {
-        GITHUB_TOKEN: "token",
-      },
-      nextRelease: { type: "minor", version: "1.2.3", gitHead: "sha123" },
-      options: {
-        repositoryUrl:
-          "https://github.com/gr2m/semantic-release-plugin-github-breaking-version-tag",
-      },
-      logger: {
-        info() {
-          logs.push(...arguments);
-        },
-      },
-    },
-  );
-
-  t.deepEqual(mock.pendingMocks(), []);
-  t.deepEqual(logs, [
-    "next release is not a major version, skipping tag creation",
-  ]);
-});
-
 test("create new v2-beta tag", async (t) => {
   const mock = nock("https://api.github.com")
     // tag does not yet exist

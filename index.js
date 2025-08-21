@@ -9,11 +9,6 @@ export async function success(
   const isPreMajor = nextRelease.type === "premajor";
   const isMajor = nextRelease.type === "major";
 
-  if (!isPreMajor && !isMajor) {
-    logger.info("next release is not a major version, skipping tag creation");
-    return;
-  }
-
   const octokit = new Octokit({
     auth: env.GH_TOKEN || env.GITHUB_TOKEN,
   });
